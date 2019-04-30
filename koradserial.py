@@ -227,7 +227,10 @@ class KoradSerial(object):
             self.port = serial.Serial(port, 9600, timeout=1)
 
         def read_character(self):
-            c = self.port.read(1).decode('ascii')
+            try:
+                c = self.port.read(1).decode('ascii')
+            except:
+                c = b'\0'
             if self.debug:
                 if len(c) > 0:
                     print("read: {0} = '{1}'".format(ord(c), c))
